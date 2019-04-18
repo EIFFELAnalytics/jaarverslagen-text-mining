@@ -1,0 +1,9 @@
+filename,filename_no_extension,output_folder,language
+ABNAMRO_2017.pdf,ABNAMRO_2017,../output/ABNAMRO_2017,english
+AEGON_2017.pdf,AEGON_2017,../output/AEGON_2017,english
+Akzonobel_2017.pdf,Akzonobel_2017,../output/Akzonobel_2017,english
+Heineken_2017.pdf,Heineken_2017,../output/Heineken_2017,english
+ING_Groep_2017.pdf,ING_Groep_2017,../output/ING_Groep_2017,english
+KPN_2017.pdf,KPN_2017,../output/KPN_2017,english
+Philips_2017.pdf,Philips_2017,../output/Philips_2017,english
+Unilever_2017.pdf,Unilever_2017,../output/Unilever_2017,english
