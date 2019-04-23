@@ -30,7 +30,6 @@ def inspect_df(df):
     except NameError:
         print(df.head(10))
 
-
 #%%
 """
 Does some language specific word processing. Returns a dataframe with the tf's.
@@ -70,21 +69,21 @@ def calculate_tf(input_file, language, output_file=None):
     return df
 
 #%%
-# Run as script
+# Press F5 to run
 if __name__ == "__main__":
 
     # Parameters
-    filename = '2018_John_Deere.txt'
-    folder = 'data/plain-text/en/'
+    filename = '2017_Ten_Cate.txt'
+    folder = 'data/en/plain-text/'
     language = 'english'
-    output_folder = 'data/tf/'
+    output_folder = 'data/en/tf/'
     filename_no_extension = re.match('(.+)\.txt', filename).group(1)
     
     # Run with save
-    df = calculate_tf(join(folder, filename), 'english', join(output_folder, filename_no_extension + '.csv'))
+    #df = calculate_tf(join(folder, filename), 'English', join(output_folder, filename_no_extension + '.csv'))
     
     # Run without save
-    #df = calculate_tf(join(folder, filename), 'english', None)
+    df = calculate_tf(join(folder, filename), 'English', None)
     
     # Inspect
     inspect_df(df)

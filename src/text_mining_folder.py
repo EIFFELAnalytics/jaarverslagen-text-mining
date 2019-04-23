@@ -8,10 +8,10 @@ import re
 from os.path import join
 from os import listdir
 try:
-    from calculate_tf import calculate_tf, inspect_df
+    from text_mining_1_file import calculate_tf, inspect_df
 except ModuleNotFoundError:
     # Jupyter also needs the folder
-    from src.calculate_tf import calculate_tf, inspect_df
+    from src.text_mining_1_file import calculate_tf, inspect_df
 
 #%%
 # Calculate term frequencies of all text files in a folder
@@ -89,17 +89,16 @@ def calculate_idf(df):
     return idf
 
 #%%
-# Main script
+# Press F5 to run
 if __name__ == '__main__':
 
     # Optional: (Re-)calculate tf for each document
-    #calculate_tf_folder('data/plain-text/en/', 'english', 'data/tf/en/')
+    calculate_tf_folder('data/nl/plain-text/', 'Dutch', 'data/nl/tf/')
 
-    # Read the pre-calculate tf's
-    df = read_tf_csv_from_folder('data/tf/en/')
-    inspect_df(df)
+    # Read the pre-calculated tf's
+    df = read_tf_csv_from_folder('data/nl/tf/')
 
-    # Calculate idf's for the whole corpus of documents
+    # Calculate idf's for each word in the entire corpus of documents
     idf = calculate_idf(df)
 
     # Join idf's with the tf's
@@ -114,6 +113,9 @@ if __name__ == '__main__':
             df[df['filename'] == filename]
             .drop(columns='filename')
             .sort_values(by='tf-idf', ascending=False)
-            .to_csv(join('data/tf-idf/en', filename), index=False)
+            .to_csv(join('data/nl/tf-idf', filename), index=False)
         )
 
+    # Also save as 1 large CSV
+    df.to_csv('data/nl/tf-idf/Alle_jaarverslagen.csv')
+    inspect_df(df)
