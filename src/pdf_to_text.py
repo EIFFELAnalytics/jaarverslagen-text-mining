@@ -9,12 +9,13 @@ import time
 def pdf_to_text(pdf_filename, txt_filename):
     """Converts PDF to plain text.
     
-    Use my docker container (https://hub.docker.com/r/arjobsen/pdftotext)
+    Uses my docker container (https://hub.docker.com/r/arjobsen/pdftotext)
     which executes pdftotext from poppler-utils.
 
     """
     with open(pdf_filename, 'r') as input:
         with open(txt_filename, 'w') as output:
+            # TODO: Catch docker errors
             subprocess.run(
                 'docker run --rm -i arjobsen/pdftotext',
                 stdin=input,

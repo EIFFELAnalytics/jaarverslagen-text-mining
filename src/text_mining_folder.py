@@ -99,10 +99,10 @@ def calculate_idf(df):
 if __name__ == '__main__':
     # Calculate tf for each document
     # This step be skipped if the text files haven't changed
-    calculate_tf_folder('data/en/plain-text/', 'data/en/tf/', 'english')
+    calculate_tf_folder('data/nl/plain-text/', 'data/nl/tf/', 'dutch')
 
     # Read the pre-calculated tf's
-    df = read_tf_csv_from_folder('data/en/tf/')
+    df = read_tf_csv_from_folder('data/nl/tf/')
 
     # Calculate idf's for each word in the entire corpus of documents
     idf = calculate_idf(df)
@@ -119,9 +119,9 @@ if __name__ == '__main__':
             df[df['filename'] == filename]
             .drop(columns='filename')
             .sort_values(by='tf-idf', ascending=False)
-            .to_csv(join('data/en/tf-idf', filename), index=False)
+            .to_csv(join('data/nl/tf-idf', filename), index=False)
         )
 
     # Also save as 1 large CSV
-    df.to_csv('data/en/tf-idf/Alle_jaarverslagen.csv')
+    df.to_csv('data/nl/tf-idf/Alle_jaarverslagen.csv')
     inspect_df(df)
