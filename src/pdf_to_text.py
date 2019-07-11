@@ -1,3 +1,11 @@
+"""Pdf to text.
+
+Converts all pdf files in jaarverslagen/en and jaarverslagen/nl to plain text
+files and saves these in data/en/plain-text and data/nl/plain-text.
+
+Make sure to launch docker before running this script.
+
+"""
 import glob
 import re
 import subprocess
@@ -39,6 +47,7 @@ def derive_txt_filename(pdf_filename):
 
 
 def stopwatch(func):
+    """Decorator which times the duration of the function it wraps."""
     @wraps(func)
     def inner(*args, **kwargs):
         t0 = time.time()
@@ -49,15 +58,15 @@ def stopwatch(func):
 
 @stopwatch
 def main():
-    """Prepare a list of all PDF's in jaarverslagen incl. subfolders and derive
-    corresponding txt filenames"""
+    # List all pdf's in jaarverslagen
     pdfs = glob.glob('jaarverslagen/**/*.pdf', recursive=True)
     txts = list(map(derive_txt_filename, pdfs))
 
     for pdf, txt in zip(pdfs, txts):
         print(pdf, '\n>', txt)
-        # Convert pdf to text. This saves the file to disk immediately
+        # Convert the pdf to text. This saves the file to disk immediately
         pdf_to_text(pdf, txt)
+        # break  # <- Useful breakpoint for debugging
 
 
 if __name__ == "__main__":

@@ -1,8 +1,8 @@
-"""Text mining process to calculate term frequency-inverse document frequency.
+"""Text mining term frequency-inverse document frequency.
 
 This module builds on text_mining_tf.py and requires CSV files with term
 frequencies in ./data/*/tf/. These files are read and used to calculate tf-idf
-for the whole corpus (language specific).
+for the whole corpus (1 language = 1 corpus).
 
 """
 
@@ -27,7 +27,7 @@ def read_and_append_csvs(csvs):
         print('Reading:', csv)
         df_1 = pd.read_csv(csv)
 
-        # Add the filename as a colmun
+        # Add the filename as a column
         df_1['filename'] = basename(csv)
 
         # Append to list
@@ -55,7 +55,7 @@ def calculate_idf(df):
     )
 
     # Calculate idf from the document count. Formula:
-    # https://en.wikipedia.org/wiki/Tf%E2%80%93idf#Inverse_document_frequency_2
+    # https://en.wikipedia.org/wiki/Tf-idf#Inverse_document_frequency_2
     idf['idf'] = np.log(N/idf['document_count'])
     return idf
 
@@ -71,6 +71,7 @@ def main():
         csvs = glob.glob(join('data', corpus, 'tf', '*.csv'))
         tfs_corpus = read_and_append_csvs(csvs)
 
+        # Calculate idf for all words in this corpus
         idf = calculate_idf(tfs_corpus)
 
         # Join idf's with the tf's dataframe
@@ -87,7 +88,7 @@ def main():
         tfs_corpus['corpus'] = corpus
         li.append(tfs_corpus)
 
-    # Concat to 1 large dataframe
+    # Concat all corpora to 1 large dataframe
     df = pd.concat(li, axis=0, ignore_index=True)
     df.to_csv('data/Alle_jaarverslagen.csv', index=False)
     inspect_df(df)

@@ -1,4 +1,4 @@
-"""Text mining process to calculate term frequencies of words in text files.
+"""Text mining term frequencies.
 
 Calculates the word term frequency from a plain text file and stores the
 results in a CSV.
