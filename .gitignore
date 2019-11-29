@@ -4,9 +4,5 @@ __pycache__/
 .venv/
 recyclebin/
 
-# Ignore all data except 2 samples: Philips (EN) and Rijksoverheid (NL)
-*.pdf
-*.txt
-*.csv
-!2018_Philips.*
-!2018_Rijksoverheid.*
+# Ignore all data
+data/
