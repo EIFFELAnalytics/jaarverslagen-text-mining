@@ -13,18 +13,33 @@ def pdf_to_text(input_pdf, output_txt=None):
         if output_txt:
             with open(output_txt, "w") as file_out:
                 # Write to text file
-                CompletedProcess = subprocess.run("docker run --rm -i arjobsen/pdftotext", stdin=file_in, stdout=file_out)
+                CompletedProcess = subprocess.run(
+                    "docker run --rm -i arjobsen/pdftotext",
+                    stdin=file_in,
+                    stdout=file_out,
+                )
+                print(input_pdf, "converted to\n", output_txt)
         else:
             # Capture output and use encoding to return as a string
-            CompletedProcess = subprocess.run("docker run --rm -i arjobsen/pdftotext", stdin=file_in, capture_output=True, encoding='utf-8')
+            CompletedProcess = subprocess.run(
+                "docker run --rm -i arjobsen/pdftotext",
+                stdin=file_in,
+                capture_output=True,
+                encoding="utf-8",
+            )
+            print(input_pdf, "converted to text:", CompletedProcess.stdout[:20], "...")
 
-    # TODO: Catch docker errors. Or check= argument from subprocess?
+    # Check for errors
+    if CompletedProcess.returncode != 0:
+        raise Exception(CompletedProcess.stderr)
+
     return CompletedProcess.stdout
 
 
 if __name__ == "__main__":
-    # Run a test. TODO later: Look into (unit) testing
+    # Press F5 to run this test
+    # TODO later: Look into (unit) testing
     test_input = "data/jaarverslagen/2018_Philips.pdf"
     test_output = "data/plain-txt/2018_Philips.txt"
-    s = pdf_to_text(test_input, test_output)
-    print(s)
+    s = pdf_to_text(test_input)  # , test_output)
+    # print(s)
