@@ -76,6 +76,7 @@ if __name__ == "__main__":
 
     # Multiply tf * idf = tf-idf
     df["tf-idf"] = df["tf"] * df["idf"]
+    df["count-corrected"] = df["count"] * df["idf"]
 
     # Save
     df.to_csv("data/Alle_jaarverslagen.csv", index=False)

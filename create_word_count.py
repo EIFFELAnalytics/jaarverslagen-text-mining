@@ -32,10 +32,11 @@ def create_word_count(pdf_input, csv_output):
     # Select some words, such as no stopwords and only >1 occurences
     wc = select_words(wc, language)
 
+    # Expand all words to 1 line because the Power BI word
+
     # Save as CSV
     wc.to_csv(csv_output, index=True)
     print("Word count saved as:", csv_output)
-
 
 if __name__ == "__main__":
     # Constants for debugging
