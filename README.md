@@ -1,15 +1,16 @@
 # Jaarverslagen text mining
-Text mining techniques, as stopword removal and [tf-idf](https://en.wikipedia.org/wiki/tf-idf), are used to extract the most important words from a PDF jaarverslag.
+Dit script prepareert jaarverslagen van bedrijven en organisaties (PDF) om ze in een wordcloud (Power BI) te visualiseren.
 
-## Usage
-Put English pdf files in the folder jaarverslagen/en and Dutch pdf files in jaarverslagen/nl. The script treats each language as an independent corpus with its own processing rules.
+Term-frequency en [tf-idf](https://en.wikipedia.org/wiki/tf-idf) worden berekend. Irrelevante woorden (bekende [stopwoorden](https://www.nltk.org/book/ch02.html#wordlist-corpora) en woorden die slechts 1 keer voorkomen) worden niet meegenomen in de tellingen.
 
-Execute the following scripts
-```
-python src/pdf_to_text.py
-python src/text_mining_tf.py
-python src/text_mining_tf-idf.py
-```
-Make sure docker is running to execute `pdf_to_text.py`.
 
-The results (csv) of each jaarverslag is saved in data/en/tf and data/nl/tf. All these results, and the tf-idf of each word, are combined and saved in data/Alle_jaarverslagen.csv.
+## Gebruik
+Zet de PDF jaarverslagen in data/jaarverslagen (maak deze folder aan als het nog niet bestaat). Engelse en Nederlandse jaarverslagen zijn toegestaan.
+
+Zorg dat docker aanstaat en draai de volgende commando's:  
+
+1. `python pdf_to_text.py` Converteert alle PDF's naar txt's.
+1. `python count_words.py` Telt de woorden van alle txt's en slaat ze op in csv's.
+1. `python prepare_for_sharepoint.py` Combineert alle csv's in 1 grote csv Alle_jaarverslagen.csv - Die kan opgeslagen worden op [SharePoint](https://eiffelnl.sharepoint.com/sites/eif-finance-brainstorm) via Teams.
+
+Het Power BI dashboard Wordcloud_jaarverslagen.pbix haalt de dataset van SharePoint.
